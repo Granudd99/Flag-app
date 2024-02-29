@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./CountryDetails.css";
 import { useTheme } from "./ThemeContext";
+import arrow from "./assets/arrow-left-dark.svg";
+import arrowB from "./assets/arrow-left.svg";
 
 export default function CountryDetails() {
   const { darkMode } = useTheme();
   const { alpha3Code } = useParams();
   const [country, setCountry] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +24,11 @@ export default function CountryDetails() {
         console.log(selectedCountry);
 
         setCountry(selectedCountry);
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+
+        return () => clearTimeout(timer);
       } catch (error) {
         console.error("Error fetching country data:", error);
       }
@@ -29,36 +37,85 @@ export default function CountryDetails() {
     fetchData();
   }, [alpha3Code]);
 
-  if (!country) {
-    return <div>Loading...</div>;
+  if (loading) {
+    return <p style={{ fontSize: "20px" }}>Loading...</p>;
   }
 
   return (
-    <div className="country-details-card">
+    <div id="country-details-card" className={darkMode ? "dark" : ""}>
+      <Link id="back" className={darkMode ? "dark" : ""} to="/">
+        <img src={darkMode ? arrowB : arrow} alt="" />
+        <p className={darkMode ? "dark-p" : ""}>Back</p>
+      </Link>
       <div className="con">
         <div className="country-details-card-img">
           <img src={country.flags.png} alt="" />
         </div>
         <div id="country-details-card-info" className={darkMode ? "dark" : ""}>
-          {" "}
           <h2>{country.name}</h2>
-          <p>Population: {country.population}</p>
-          <p>Capital: {country.capital}</p>
-          <div className="currencies-container">
-            {Array.isArray(country.currencies) ? (
-              country.currencies.map((currency, index) => (
-                <p key={index}>Currency: {currency.code}</p>
-              ))
-            ) : (
-              <p>No currencies</p>
-            )}
+
+          <div className="middle">
+            <div className="middle-left">
+              <p>
+                Population:{" "}
+                <span className="info-p">
+                  {country.population.toLocaleString()}
+                </span>{" "}
+              </p>
+              <p>
+                Region : <span className="info-p">{country.region}</span>{" "}
+              </p>
+              <p>
+                Capital: <span className="info-p">{country.capital}</span>{" "}
+              </p>
+              <p>
+                Native name :{" "}
+                <span className="info-p">{country.nativeName}</span>{" "}
+              </p>
+            </div>
+            <div className="middle-right">
+              {" "}
+              {Array.isArray(country.currencies) ? (
+                country.currencies.map((currency, index) => (
+                  <p key={index}>
+                    Currency: <span className="info-p">{currency.code}</span>{" "}
+                  </p>
+                ))
+              ) : (
+                <p>No currencies</p>
+              )}{" "}
+              <p>
+                Top Level Domain :{" "}
+                <span className="info-p"> {country.topLevelDomain}</span>{" "}
+              </p>
+              <div className="languages">
+                <div className="languages">
+                  {Array.isArray(country.languages) ? (
+                    <p>
+                      Languages:{" "}
+                      {country.languages.map((language, index) => (
+                        <span className="info-p" key={index}>
+                          {language.name}
+                          {index < country.languages.length - 1 ? ", " : ""}
+                        </span>
+                      ))}
+                    </p>
+                  ) : (
+                    <p>No Language</p>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
-          <p>Borders:</p>
+
           <div className="borders-container">
+            <p>Border Countries: </p>
             {Array.isArray(country.borders) ? (
               country.borders.map((border, index) => (
                 <Link key={index} to={`/country/${border}`}>
-                  <button className="border-button">{border}</button>
+                  <button id="border-button" className={darkMode ? "dark" : ""}>
+                    {border}
+                  </button>
                 </Link>
               ))
             ) : (

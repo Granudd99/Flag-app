@@ -1,30 +1,30 @@
 #Navbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-evenly;
+  gap: 900px;
 
+  align-items: center;
   padding: 10px 50px 10px 50px;
   background-color: #f8f9fa;
   color: #343a40;
   &.dark {
-    background-color: rgb(35, 35, 35);
+    background-color: #2b3844;
     color: white;
   }
+}
+
+#dark-button {
+  background-color: transparent;
+}
+
+.right-side {
+  display: flex;
+  justify-content: center;
 }
 
 #Navbar img {
   max-width: 100%;
   height: auto;
-}
-
-#Navbar button {
-  cursor: pointer;
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
 }
 
 .countryapp {
@@ -33,7 +33,22 @@
 }
 
 @media (max-width: 767px) {
-  .countryapp {
+  #Navbar {
+    gap: 0px;
+    padding: 0px;
+  }
+
+  #techover-logo {
     display: none;
+  }
+
+  #dark-button {
+    padding: 0px 0px 0px 5px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  #Navbar {
+    gap: 0px;
   }
 }

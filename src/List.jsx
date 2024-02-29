@@ -1,11 +1,14 @@
+// List.js
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import "./List.css";
 import "./dropdrop.css";
 import "./Navbar";
 import { Link } from "react-router-dom";
+import { useTheme } from "./ThemeContext";
 
 export default function List() {
+  const { darkMode } = useTheme();
   const [data, setData] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState("");
   const [regions, setRegions] = useState([]);
@@ -39,12 +42,10 @@ export default function List() {
   });
 
   return (
-    <div className="List-con">
+    <div className="List-container">
       <div className="mid-sec">
-        <div className="empty-left"></div>
-
         <input
-          className="search-bar"
+          className={darkMode ? "dark" : ""}
           id="search"
           type="text"
           placeholder="Search for a country..."
@@ -53,7 +54,12 @@ export default function List() {
         />
 
         <label>
-          <select name="Regions" id="region" onChange={handleRegionChange}>
+          <select
+            name="Regions"
+            id="region"
+            className={darkMode ? "dark" : ""}
+            onChange={handleRegionChange}
+          >
             <option value="">All regions</option>
             {regions.map((region, index) => (
               <option key={index} value={region}>
@@ -62,7 +68,6 @@ export default function List() {
             ))}
           </select>
         </label>
-        <div className="empty-right"></div>
       </div>
       <div className="card-map">
         {filteredData.map((country) => (

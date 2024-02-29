@@ -6,6 +6,11 @@
   justify-content: center;
 }
 
+.List-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .List-con {
   display: flex;
   flex-direction: column;

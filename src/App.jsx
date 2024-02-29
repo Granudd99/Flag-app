@@ -5,11 +5,13 @@ import List from "./List";
 import CountryDetails from "./CountryDetails";
 import "./App.css";
 import { ThemeProvider } from "./ThemeContext";
+import Navbar from "./Navbar";
 
 function App() {
   return (
     <Router>
       <ThemeProvider>
+        <Navbar />
         <Routes>
           <Route
             path="/"
