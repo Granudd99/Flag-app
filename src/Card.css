@@ -43,11 +43,11 @@
   box-shadow: 2px 2px 2px black;
 }
 
-/* Uppdatera din Card.css-fil eller skapa en separat CSS-fil för loading-stilar */
+
 
 .Card {
   position: relative;
-  /* Andra stilar för ditt kort här */
+ 
 }
 
 .LoadingIndicator {
@@ -56,5 +56,5 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 18px;
-  color: #666; /* Grå färg för loading-texten */
+  color: #666; 
 }
