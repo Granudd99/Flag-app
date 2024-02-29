@@ -1,0 +1,2 @@
+- [Github repository](https://github.com/Granudd99/Flag-app)
+- [Deployat projekt](https://worldwideflags.netlify.app)
